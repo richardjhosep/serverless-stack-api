@@ -1,0 +1,27 @@
+service: notes-api
+
+# Creando un paquete optimizado para nuestras funciones
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle # Empaquetar nuestras funciones con Webpack
+  - serverless-offline
+  - serverless-dotenv-plugin # Cargar el archivo .env como variables de ambiente
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: prod
+  region: us-east-1
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+"scripts": {
+  "test": "serverless-bundle test"
+}
